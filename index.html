@@ -19,6 +19,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://kleith.github.io/" />
     <meta property="og:image" content="https://kleith.github.io/template_arg3.png" />
+    <meta property="og:image:type" content="image/png">
     <meta property="og:description" content="Template de la bandera Argentina para /r/place de Reddit." />
     <meta name="theme-color" content="#ffffff" />
 
@@ -34,7 +35,7 @@
     <script>
       const X_PIXELS = 15;
       const Y_PIXELS = 15;
-      const X_OFFSET = 400;
+      const X_OFFSET = 200;
       const Y_OFFSET = 100;
 
       const X_IN_PLACE = 902;
@@ -93,10 +94,10 @@
         let y = Math.floor((p.y - Y_OFFSET) / Y_PIXELS) + Y_IN_PLACE;
         fg.clearRect(0, 0, fg.canvas.width, fg.canvas.height);
 
-        let text = x + " / " + y;
-        fg.font = "80px Sans-serif";
+        let text = x + ";" + y;
+        fg.font = "45px Sans-serif";
         fg.strokeStyle = "black";
-        fg.lineWidth = 8;
+        fg.lineWidth = 5;
         fg.strokeText(text, p.x + 10, p.y + 20);
         fg.fillStyle = "white";
         fg.fillText(text, p.x + 10, p.y + 20);
