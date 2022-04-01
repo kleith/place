@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Argentina r/place</title>
+    <title>/r/argentina place</title>
     <style>
       .container {
         position: relative;
@@ -14,6 +14,7 @@
         left: 0;
       }
     </style>
+    <link rel="icon" type="image/png" href="./favicon.png" />
   </head>
   <body>
     <div id="container" class="container">
@@ -75,7 +76,7 @@
         bg.drawImage(img, 0, 0, img.width, img.height, 0, Y_OFFSET, w, h);
         drawGrid(0, Y_OFFSET, w, h + Y_OFFSET, bg);
       };
-      img.src = "template_arg.png";
+      img.src = "template_arg2.png";
 
       foreground.addEventListener("mousemove", (event) => {
         let p = getMousePos(foreground, event);
