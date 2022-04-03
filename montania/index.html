@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>/r/argentina place</title>
+    <style>
+      .container {
+        position: relative;
+      }
+
+      .container > canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <meta property="og:title" content="/r/argentina" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kleith.github.io/" />
+    <meta property="og:image" content="https://kleith.github.io/images/sharing/montania.png" />
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:description" content="Template de la bandera Argentina para /r/place de Reddit." />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Include this to make the og:image larger -->
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="container" class="container">
+      <canvas id="canvas_background" width="800" height="500"></canvas>
+      <canvas id="canvas_foreground" width="800" height="500"></canvas>
+    </div>
+
+    <script>
+      const X_PIXELS = 15;
+      const Y_PIXELS = 15;
+      const X_OFFSET = 200;
+      const Y_OFFSET = 100;
+
+      const X_IN_PLACE = 1129;
+      const Y_IN_PLACE = 619;
+
+      function getMousePos(canvas, evt) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x:
+            ((evt.clientX - rect.left) / (rect.right - rect.left)) *
+            canvas.width,
+          y:
+            ((evt.clientY - rect.top) / (rect.bottom - rect.top)) *
+            canvas.height,
+        };
+      }
+
+      function drawGrid(x_0, y_0, x_max, y_max, ctx) {
+        for (let x = x_0; x <= x_max; x += X_PIXELS) {
+          ctx.moveTo(x, y_0);
+          ctx.lineTo(x, y_max);
+          for (let y = y_0; y <= y_max; y += Y_PIXELS) {
+            ctx.moveTo(x_0, y);
+            ctx.lineTo(x_max, y);
+          }
+        }
+        ctx.strokeStyle = "#bbbbbb";
+        ctx.stroke();
+      }
+
+      const background = document.getElementById("canvas_background");
+      const bg = background.getContext("2d");
+
+      const foreground = document.getElementById("canvas_foreground");
+      const fg = foreground.getContext("2d");
+
+      const img = new Image();
+      img.onload = function () {
+        w = img.width * X_PIXELS;
+        h = img.height * Y_PIXELS;
+
+        bg.canvas.width = w + X_OFFSET;
+        bg.canvas.height = h + 2 * Y_OFFSET;
+
+        fg.canvas.width = bg.canvas.width;
+        fg.canvas.height = bg.canvas.height;
+        bg.imageSmoothingEnabled = false;
+        bg.drawImage(img, 0, 0, img.width, img.height, 0, Y_OFFSET, w, h);
+        drawGrid(0, Y_OFFSET, w, h + Y_OFFSET, bg);
+      };
+      img.src = "../images/templates/template_arg9.png";
+
+      foreground.addEventListener("mousemove", (event) => {
+        let p = getMousePos(foreground, event);
+        let x = Math.floor(p.x / X_PIXELS) + X_IN_PLACE;
+        let y = Math.floor((p.y - Y_OFFSET) / Y_PIXELS) + Y_IN_PLACE;
+        fg.clearRect(0, 0, fg.canvas.width, fg.canvas.height);
+
+        let text = x + "," + y;
+        fg.font = "45px Sans-serif";
+        fg.strokeStyle = "black";
+        fg.lineWidth = 5;
+        fg.strokeText(text, p.x + 10, p.y + 20);
+        fg.fillStyle = "white";
+        fg.fillText(text, p.x + 10, p.y + 20);
+      });
+
+      foreground.addEventListener("click", (event) => {
+        let p = getMousePos(foreground, event);
+        let x = Math.floor(p.x / X_PIXELS) + X_IN_PLACE;
+        let y = Math.floor((p.y - Y_OFFSET) / Y_PIXELS) + Y_IN_PLACE;
+        let url =
+          "https://www.reddit.com/r/place/?cx=" + x + "&cy=" + y + "&px=23";
+        window.open(url, "_blank").focus();
+      });
+    </script>
+  </body>
+</html>
