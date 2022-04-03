@@ -18,7 +18,7 @@
     <meta property="og:title" content="/r/argentina" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://kleith.github.io/" />
-    <meta property="og:image" content="https://kleith.github.io/images/sharing/place2.png" />
+    <meta property="og:image" content="https://kleith.github.io/images/sharing/place3.png" />
     <meta property="og:image:type" content="image/png">
     <meta property="og:description" content="Template de la bandera Argentina para /r/place de Reddit." />
     <meta name="theme-color" content="#ffffff" />
@@ -38,8 +38,8 @@
       const X_OFFSET = 200;
       const Y_OFFSET = 100;
 
-      const X_IN_PLACE = 889;
-      const Y_IN_PLACE = 610;
+      const X_IN_PLACE = 905;
+      const Y_IN_PLACE = 619;
 
       function getMousePos(canvas, evt) {
         const rect = canvas.getBoundingClientRect();
@@ -86,7 +86,7 @@
         bg.drawImage(img, 0, 0, img.width, img.height, 0, Y_OFFSET, w, h);
         drawGrid(0, Y_OFFSET, w, h + Y_OFFSET, bg);
       };
-      img.src = "images/templates/template_arg6.png";
+      img.src = "images/templates/template_arg7.png";
 
       foreground.addEventListener("mousemove", (event) => {
         let p = getMousePos(foreground, event);
@@ -94,7 +94,7 @@
         let y = Math.floor((p.y - Y_OFFSET) / Y_PIXELS) + Y_IN_PLACE;
         fg.clearRect(0, 0, fg.canvas.width, fg.canvas.height);
 
-        let text = x + ";" + y;
+        let text = x + "," + y;
         fg.font = "45px Sans-serif";
         fg.strokeStyle = "black";
         fg.lineWidth = 5;
